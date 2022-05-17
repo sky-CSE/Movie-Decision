@@ -21,7 +21,7 @@ fun DetailsScreen(
 ) {
     Scaffold(topBar = {
         TopAppBar(
-            backgroundColor = Color.Transparent,
+            backgroundColor = Color(0xFFFF0266),
             elevation = 0.dp
         ) {
             Row(horizontalArrangement = Arrangement.Start) {
