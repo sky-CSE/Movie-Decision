@@ -3,20 +3,21 @@ package com.example.movie_decision
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.Card
+import androidx.compose.material.Icon
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.movie_decision.navigation.MovieNavigation
 import com.example.movie_decision.ui.theme.MovieDecisionTheme
 
 class MainActivity : ComponentActivity() {
@@ -25,7 +26,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MovieDecisionTheme {
                 MyApp {
-                    MainContent()
+                    MovieNavigation()
                 }
             }
         }
@@ -35,49 +36,23 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MyApp(content: @Composable () -> Unit) {
     MovieDecisionTheme {
-        Scaffold(
-            topBar = {
-                TopAppBar(
-                    backgroundColor = Color.Magenta,
-                    elevation = 6.dp
-                ) {
-                    Text(text = "Movies")
-                }
-            },
-        ) {
-            content() //calling content i.e. MainContent (as passed above)
-        }
+        content()
     }
 }
 
 @Composable
-fun MainContent(
-    movieList: List<String> = listOf(
-        "Avatar",
-        "300",
-        "Harry Potter",
-        "Happiness...",
-        "Cross the Line...",
-        "Be Happy...",
-        "Happy Feet...",
-        "Life"
-    )
+fun MovieRow(
+    movie: String,
+    onItemClick: (String) -> Unit = {}
 ) {
-    LazyColumn {
-        items(items = movieList) {
-            MovieRow(movie = it)
-        }
-    }
-
-}
-
-@Composable
-fun MovieRow(movie: String) {
     Card(
         modifier = Modifier
             .padding(4.dp)
             .fillMaxWidth()
-            .height(130.dp),
+            .height(130.dp)
+            .clickable {
+                onItemClick(movie)
+            },
         shape = RoundedCornerShape(corner = CornerSize(16.dp)),
         elevation = 6.dp
     ) {
@@ -92,7 +67,6 @@ fun MovieRow(movie: String) {
             )
             Text(text = movie)
         }
-
     }
 }
 
@@ -100,6 +74,6 @@ fun MovieRow(movie: String) {
 @Composable
 fun DefaultPreview() {
     MovieDecisionTheme {
-        MainContent()
+        MovieNavigation()
     }
 }
