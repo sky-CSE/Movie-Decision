@@ -1,7 +1,7 @@
 package com.example.movie_decision.model
 
 data class Movie(
-    val id: String,
+    var id: String,
     val title: String,
     val year: String,
     val genre: String,

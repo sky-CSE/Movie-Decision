@@ -7,10 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
@@ -46,14 +43,15 @@ fun MovieRow(
 
     Card(
         modifier = Modifier
-            .padding(8.dp)
+            .padding(start = 4.dp, end = 4.dp, top = 6.dp, bottom = 6.dp)
             .fillMaxWidth()
             //.height(130.dp) //to expand the card we made it dynamic
             .clickable {
                 onItemClick(movie.id)
             },
         shape = RoundedCornerShape(corner = CornerSize(16.dp)),
-        elevation = 6.dp
+        elevation = 4.dp,
+        backgroundColor = Color(0xFFECEFF1)
     ) {
         Row(
             horizontalArrangement = Arrangement.Start
@@ -135,6 +133,10 @@ fun MovieRow(
                                 append(movie.plot)
                             }
                         }, modifier = Modifier.padding(6.dp))
+
+                        Divider(thickness = 1.dp)
+                        Text(text = "Director: ${movie.director}", fontWeight = FontWeight.SemiBold, style = MaterialTheme.typography.caption)
+                        Text(text = "Actors: ${movie.actors}", style = MaterialTheme.typography.caption)
                     }
                 }
             }

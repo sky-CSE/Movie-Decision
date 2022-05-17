@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
@@ -23,9 +24,9 @@ fun HomeScreen(navController: NavController) {
         topBar = {
             TopAppBar(
                 backgroundColor = Color(0xFFFF0266),
-                elevation = 6.dp
+                elevation = 8.dp
             ) {
-                Text(text = "Movies", modifier = Modifier.padding(start = 20.dp))
+                Text(text = "Movies", modifier = Modifier.padding(start = 20.dp), color = Color.White)
             }
         },
     ) {
@@ -38,14 +39,15 @@ fun HomeScreen(navController: NavController) {
 fun MainContent(
     navController: NavController,
     movieList: List<Movie> = getMovies()){
+    Surface(color = Color(0xFFCFD8DC)) {
+        LazyColumn {
+            items(items = movieList) {
+                MovieRow(movie = it) { movie ->
 
-    LazyColumn {
-        items(items = movieList) {
-            MovieRow(movie = it) { movie ->
-
-                //navigating to detail screen and sending data as argument
-                navController.navigate(route = MovieScreens.DetailScreen.name + "/$movie")
-                //Log.d("TAG", "MainContent: $movie")
+                    //navigating to detail screen and sending data as argument
+                    navController.navigate(route = MovieScreens.DetailScreen.name + "/$movie")
+                    //Log.d("TAG", "MainContent: $movie")
+                }
             }
         }
     }
